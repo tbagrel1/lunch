@@ -1,9 +1,12 @@
 apply plugin: 'java-library'
 
+group = 'com.tbagrel1.lunch'
+version = '0.1.0'
+
+targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_11
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation group: 'junit', name: 'junit', version: '4.13'
 }
-
-targetCompatibility = JavaVersion.VERSION_11
-sourceCompatibility = JavaVersion.VERSION_11

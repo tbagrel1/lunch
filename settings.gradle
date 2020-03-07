@@ -1,4 +1,4 @@
 rootProject.name='Lunch'
 include ':app'
-include ':core'
 include ':api'
+include ':core'
