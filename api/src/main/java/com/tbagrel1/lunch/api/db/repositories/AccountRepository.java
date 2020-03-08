@@ -2,10 +2,10 @@ package com.tbagrel1.lunch.api.db.repositories;
 
 import com.tbagrel1.lunch.api.db.models.Account;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountRepository extends CrudRepository<com.tbagrel1.lunch.api.db.models.Account, Long> {
-    Account findById(long id);
-    Iterable<Account> findByFirstname(String firstname);
-    Iterable<Account> findByLastname(String lastname);
+import java.util.Optional;
+
+public interface AccountRepository extends JpaRepository<Account, String> {
+    Optional<Account> findById(String email);
 }
