@@ -16,24 +16,54 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
+
 @RestController
 public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
 
-    @RequestMapping(path = "api/account",
+    @RequestMapping(path = "/api/account/{username}",
+                    method = RequestMethod.GET,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<OutputAccount> getAccount(@PathVariable(name = "username", required = true) String username) {
+        return new ResponseEntity<>(
+            this.accountRepository.findByUsername(username)
+                .orElseThrow(NotFoundException::new)
+                .toOutput(),
+            HttpStatus.OK
+        );
+    }
+
+    @RequestMapping(path = "/api/account",
+                    method = RequestMethod.GET,
+                    produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<OutputAccount>> getAccounts() {
+        return new ResponseEntity<>(
+            this.accountRepository.findAll().parallelStream()
+                .map(Account::toOutput)
+                .collect(Collectors.toList()),
+            HttpStatus.OK
+        );
+    }
+
+    @RequestMapping(path = "/api/account",
                     method = RequestMethod.POST,
                     consumes = MediaType.APPLICATION_JSON_VALUE,
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OutputAccount> postAccount(@RequestBody InputAccount inputAccount) {
+        // TODO: handle username collision
         Account account = Account.fromInput(inputAccount);
         this.accountRepository.save(account);
         return new ResponseEntity<>(account.toOutput(), HttpStatus.OK);
     }
 
     // TODO: remove
-    @RequestMapping(path = "api/account/{username}/enable",
+    @RequestMapping(path = "/api/account/{username}/enable",
                     method = RequestMethod.POST)
     public ResponseEntity<?> postEnableAccount(@PathVariable(name = "username", required = true) String username) {
         Account account = this.accountRepository.findByUsername(username)
@@ -46,7 +76,7 @@ public class AccountController {
     }
 
     // TODO: remove
-    @RequestMapping(path = "api/account/{username}/disable",
+    @RequestMapping(path = "/api/account/{username}/disable",
                     method = RequestMethod.POST)
     public ResponseEntity<?> postDisableAccount(@PathVariable(name = "username", required = true) String username) {
         Account account = this.accountRepository.findByUsername(username)
