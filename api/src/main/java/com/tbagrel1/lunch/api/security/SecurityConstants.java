@@ -14,6 +14,7 @@ public class SecurityConstants {
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";
     public static final String TOKEN_ISSUER = "lunch.tbagrel1.com";
+    public static final String SIGN_UP_URL = "api/account";
 
     public static final SignatureAlgorithm SIGNATURE_ALGORITHM = SignatureAlgorithm.HS512;
     public static final byte[] SECRET_BYTES = DatatypeConverter.parseHexBinary(SECRET_HEX);

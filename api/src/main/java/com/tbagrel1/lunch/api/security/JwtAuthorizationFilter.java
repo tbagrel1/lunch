@@ -22,7 +22,7 @@ import static com.tbagrel1.lunch.api.security.SecurityConstants.SIGNING_KEY;
 import static com.tbagrel1.lunch.api.security.SecurityConstants.TOKEN_PREFIX;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-    private static JwtParser jwtParser = Jwts.parserBuilder()
+    private final JwtParser jwtParser = Jwts.parserBuilder()
         .setSigningKey(SIGNING_KEY)
         .build();
 

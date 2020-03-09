@@ -4,13 +4,17 @@ import com.tbagrel1.lunch.core.models.input.InputAccount;
 import com.tbagrel1.lunch.core.models.output.OutputAccount;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class Account {
+public class Account implements UserDetails {
     @Autowired
     private static BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -49,8 +53,28 @@ public class Account {
         );
     }
 
+    @Override public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override public String getPassword() {
+        return passwordHash;
+    }
+
     public String getUsername() {
         return username;
+    }
+
+    @Override public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override public boolean isCredentialsNonExpired() {
+        return false;
     }
 
     public void setUsername(String username) {
