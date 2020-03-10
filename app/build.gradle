@@ -31,6 +31,8 @@ android {
     }
 }
 
+project.buildDir = 'out'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files(sdkDir + '/platforms/android-29/android.jar')

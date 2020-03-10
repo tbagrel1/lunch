@@ -1,10 +1,17 @@
 package com.tbagrel1.lunch.core.models.security;
 
-public class AccountCredential {
-    private String username;
-    private String password;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public AccountCredential(String username, String password) {
+public class AccountCredential {
+    private final String username;
+    private final String password;
+
+    @JsonCreator
+    public AccountCredential(
+        @JsonProperty("username") String username,
+        @JsonProperty("password") String password
+    ) {
         this.username = username;
         this.password = password;
     }
@@ -13,15 +20,14 @@ public class AccountCredential {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    @Override public String toString() {
+        return String.format(
+            "AccountCredential[username='%s', password='%s']",
+            username, password
+        );
     }
 }

@@ -1,6 +1,7 @@
 package com.tbagrel1.lunch.api.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tbagrel1.lunch.api.db.models.Account;
 import com.tbagrel1.lunch.core.models.security.AccountCredential;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -62,16 +62,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         HttpServletResponse response,
         FilterChain chain,
         Authentication authentication
-    ) throws IOException, ServletException {
-
+    ) {
         long now = System.currentTimeMillis();
         Date issuedAt = new Date(now);
         Date expiresAt = new Date(now + EXPIRATION_TIME);
 
         String token = Jwts.builder()
             .setIssuer(TOKEN_ISSUER)
-            .setSubject(((AccountCredential) authentication.getPrincipal()).getUsername())
-            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setSubject(((Account) authentication.getPrincipal()).getUsername())
+            .setIssuedAt(issuedAt)
             .setExpiration(expiresAt)
             .signWith(SIGNING_KEY, SIGNATURE_ALGORITHM)
             .compact();

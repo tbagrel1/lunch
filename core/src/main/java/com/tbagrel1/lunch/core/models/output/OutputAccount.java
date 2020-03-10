@@ -14,4 +14,24 @@ public class OutputAccount {
         this.displayedName = displayedName;
         this.enabled = enabled;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getDisplayedName() {
+        return displayedName;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

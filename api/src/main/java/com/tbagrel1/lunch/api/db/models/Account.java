@@ -1,12 +1,11 @@
 package com.tbagrel1.lunch.api.db.models;
 
+import com.tbagrel1.lunch.api.security.BCryptPasswordEncoderSingleton;
 import com.tbagrel1.lunch.core.models.input.InputAccount;
 import com.tbagrel1.lunch.core.models.output.OutputAccount;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 
@@ -15,9 +14,6 @@ import javax.persistence.Id;
 
 @Entity
 public class Account implements UserDetails {
-    @Autowired
-    private static BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Id
     private String username;
 
@@ -36,7 +32,7 @@ public class Account implements UserDetails {
         account.setFirstname(inputAccount.getFirstname());
         account.setLastname(inputAccount.getLastname());
         account.setDisplayedName(inputAccount.getDisplayedName());
-        account.setPasswordHash(bCryptPasswordEncoder.encode(inputAccount.getPassword()));
+        account.setPasswordHash(BCryptPasswordEncoderSingleton.getInstance().getInner().encode(inputAccount.getPassword()));
         account.disable();
         return account;
     }
@@ -66,15 +62,15 @@ public class Account implements UserDetails {
     }
 
     @Override public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     public void setUsername(String username) {

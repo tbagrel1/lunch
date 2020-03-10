@@ -10,6 +10,8 @@ version = '0.1.0'
 targetCompatibility = JavaVersion.VERSION_11
 sourceCompatibility = JavaVersion.VERSION_11
 
+project.buildDir = 'out'
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -17,7 +19,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.postgresql:postgresql'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.0'
-	implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 	runtime 'io.jsonwebtoken:jjwt-impl:0.11.0',
 			// Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
 			//'org.bouncycastle:bcprov-jdk15on:1.60',

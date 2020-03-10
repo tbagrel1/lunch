@@ -31,6 +31,9 @@ public class AppWebSecurity extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+            // TODO: remove
+                .antMatchers(HttpMethod.POST, "/api/account/*/enable").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/account/*/disable").permitAll()
                 .anyRequest().authenticated()
             .and()
             .addFilter(new JwtAuthenticationFilter(this.authenticationManager()))
@@ -41,7 +44,9 @@ public class AppWebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder authentication) throws Exception {
-        authentication.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
+        authentication
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Bean

@@ -57,6 +57,8 @@ public class AccountController {
                     produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<OutputAccount> postAccount(@RequestBody InputAccount inputAccount) {
         // TODO: handle username collision
+        // TODO: handle empty fields
+        // TODO: validate username against "[A-Za-z_-]+" + check length >= 4 + no _- at the beginning, end or 2 successive
         Account account = Account.fromInput(inputAccount);
         this.accountRepository.save(account);
         return new ResponseEntity<>(account.toOutput(), HttpStatus.OK);
@@ -72,6 +74,7 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         account.enable();
+        this.accountRepository.save(account);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -85,6 +88,7 @@ public class AccountController {
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         account.disable();
+        this.accountRepository.save(account);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
