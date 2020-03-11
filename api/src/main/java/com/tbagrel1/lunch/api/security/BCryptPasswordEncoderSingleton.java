@@ -2,6 +2,7 @@ package com.tbagrel1.lunch.api.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+// TODO: improve
 public class BCryptPasswordEncoderSingleton {
     private static BCryptPasswordEncoderSingleton instance = null;
     public static BCryptPasswordEncoderSingleton getInstance() {

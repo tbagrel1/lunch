@@ -8,4 +8,9 @@ import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, String> {
     Optional<Account> findByUsername(String username);
+    default boolean isNewUsernameValid(String username) {
+        return this.findByUsername(username).isPresent()
+            // TODO: add regex here
+            && true;
+    }
 }

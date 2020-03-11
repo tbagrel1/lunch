@@ -12,6 +12,8 @@ import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+// TODO: add string length limit
+
 @Entity
 public class Account implements UserDetails {
     @Id
@@ -111,10 +113,6 @@ public class Account implements UserDetails {
 
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public void enable() {
