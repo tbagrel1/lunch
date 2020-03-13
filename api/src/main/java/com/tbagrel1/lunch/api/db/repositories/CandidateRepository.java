@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public interface CandidateRepository extends JpaRepository<NonCandidateDay, NonCandidateDayId> {

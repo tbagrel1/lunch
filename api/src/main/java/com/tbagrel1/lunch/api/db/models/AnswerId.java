@@ -7,16 +7,16 @@ import java.util.Objects;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-public class NonCandidateDayId implements Serializable {
+public class AnswerId implements Serializable {
     private String username;
 
     @Temporal(TemporalType.DATE)
     private Calendar day;
 
-    public NonCandidateDayId() {
+    public AnswerId() {
     }
 
-    public NonCandidateDayId(String username, Calendar day) {
+    public AnswerId(String username, Calendar day) {
         this.username = username;
         this.day = day;
     }
@@ -28,7 +28,7 @@ public class NonCandidateDayId implements Serializable {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        NonCandidateDayId that = (NonCandidateDayId) obj;
+        AnswerId that = (AnswerId) obj;
         return username.equals(that.username) &&
             day.get(Calendar.YEAR) == that.day.get(Calendar.YEAR) &&
             day.get(Calendar.MONTH) == that.day.get(Calendar.MONTH) &&
